@@ -1,16 +1,26 @@
 package com.bridgelabz.addressbook.model;
 
+/**
+ * import classes
+ */
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-//Map to a database table address
+/**
+ * Map to a database table address
+ */
 @Entity
 
-//Created AddressBook class with different fields
+/**
+ * Created AddressBook class with different fields
+ */
 public class AddressBook {
 
+    /**
+     * variables
+     */
     @Id
     @GeneratedValue
     private Integer id;
@@ -23,14 +33,17 @@ public class AddressBook {
     private String state;
     private Integer zip;
 
-
-
-
+    /**
+     * default constructor
+     */
     public AddressBook() {
         super();
     }
 
-    //Created constructor for postaddress method
+    /**
+     * Created constructor for postaddress method
+     * @param addressBook - all person data
+     */
     public AddressBook(AddressBook addressBook) {
         super();
         this.firstName = addressBook.firstName;
@@ -42,7 +55,11 @@ public class AddressBook {
         this.zip = addressBook.zip;
     }
 
-    //Created constructor for update by id method
+    /**
+     * Created constructor for update by id method
+     * @param addressBook - all person data
+     * @param id - person id
+     */
     public AddressBook(AddressBook addressBook, Integer id) {
         this.id = id;
         this.firstName = addressBook.firstName;
@@ -52,7 +69,6 @@ public class AddressBook {
         this.city = addressBook.city;
         this.state = addressBook.state;
         this.zip = addressBook.zip;
-
 
     }
 
