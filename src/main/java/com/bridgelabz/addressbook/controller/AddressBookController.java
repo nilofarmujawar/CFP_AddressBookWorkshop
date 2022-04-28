@@ -1,6 +1,8 @@
 package com.bridgelabz.addressbook.controller;
 
-
+/**
+ * import classes
+ */
 import com.bridgelabz.addressbook.model.AddressBook;
 import com.bridgelabz.addressbook.repository.AddressBookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +29,7 @@ public class AddressBookController {
      */
     @GetMapping("")
     public String getMessage() {
-        return "Welcome to Addressbook App";
+        return "Welcome to Address Book App";
     }
 
     /**
@@ -51,7 +53,6 @@ public class AddressBookController {
         List<AddressBook> addressBook = repository.findAll();
         return addressBook;
     }
-
 
     /**
      * Ability to get person data by id
@@ -82,7 +83,7 @@ public class AddressBookController {
      * @param id - person id in address book
      * @return -person Id and Acknowledgment message
      */
-    @GetMapping("/delete/{id}")
+    @DeleteMapping("/delete/{id}")
     public String deleteAddress(@PathVariable Integer id) {
         repository.deleteById(id);
         return "Address of id: " + id + " has been deleted";
