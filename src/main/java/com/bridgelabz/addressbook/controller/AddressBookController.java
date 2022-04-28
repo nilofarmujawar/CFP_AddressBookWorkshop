@@ -1,18 +1,23 @@
 package com.bridgelabz.addressbook.controller;
 
-
+/**
+ * import classes
+ */
 import com.bridgelabz.addressbook.dto.AddressBookDTO;
 import com.bridgelabz.addressbook.dto.ResponseDTO;
 import com.bridgelabz.addressbook.model.AddressBook;
-import com.bridgelabz.addressbook.service.AddressBookService;
+import com.bridgelabz.addressbook.service.IAddressBookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
-//Created controller class to make api calls
+/**
+ * Created controller class to make api calls
+ */
 @RestController
 @RequestMapping("/addressbook")
 public class AddressBookController {
@@ -21,17 +26,16 @@ public class AddressBookController {
      * Autowired AddressBookService so we can inject its dependency here
      */
     @Autowired
-    AddressBookService service;
+    IAddressBookService service;
 
     /**
      * - Ability to display welcome message
      * @return- welcome msg
      */
     @GetMapping("")
-    public String getMessage() {
-        return "Welcome to Addressbook App";
+    public String welcomeUser() {
+        return "Welcome to  address book app development";
     }
-
     /**
      * - Ability to get all address book data by findAll() method
      * @return :- showing all data
@@ -39,7 +43,7 @@ public class AddressBookController {
     @GetMapping("/get")
     public ResponseEntity<String> getAllData() {
         List<AddressBook> listOfContacts = service.getListOfAddresses();
-        ResponseDTO response = new ResponseDTO("Addresbook :", listOfContacts);
+        ResponseDTO response = new ResponseDTO("Address book :", listOfContacts);
         return new ResponseEntity(response, HttpStatus.OK);
     }
 
@@ -51,7 +55,7 @@ public class AddressBookController {
     @PostMapping("/post")
     public ResponseEntity<ResponseDTO> postData(@RequestBody AddressBookDTO addressBookDTO) {
         AddressBook newContact = service.saveAddress(addressBookDTO);
-        ResponseDTO response = new ResponseDTO("New Contact Added in Addressbook : ", newContact);
+        ResponseDTO response = new ResponseDTO("New Contact Added in Address book : ", newContact);
         return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);
     }
 
@@ -61,9 +65,10 @@ public class AddressBookController {
      * @return - get person information with same Id in JSON format
      */
     @GetMapping("/get/{id}")
-    public ResponseEntity<AddressBook> getAddressById(@PathVariable Integer id) {
-        ResponseDTO response = new ResponseDTO("Addressbook of given id: ", service.getAddressbyId(id));
-        return new ResponseEntity(response, HttpStatus.OK);
+    public ResponseEntity<AddressBook> getDataFromRepoById(@PathVariable Integer id) {
+        Optional<AddressBook> addressBook = service.getDataById(id);
+        ResponseDTO dto = new ResponseDTO("Data",addressBook);
+        return new ResponseEntity(dto, HttpStatus.OK);
     }
 
     /**
@@ -75,7 +80,7 @@ public class AddressBookController {
     @PutMapping("/update/{id}")
     public ResponseEntity<ResponseDTO> updateById(@PathVariable Integer id, @RequestBody AddressBookDTO addressBookDTO) {
         AddressBook newContact = service.updateDateById(id, addressBookDTO);
-        ResponseDTO response = new ResponseDTO("Address-book updated : ", newContact);
+        ResponseDTO response = new ResponseDTO("Addressbook updated : ", newContact);
         return new ResponseEntity<ResponseDTO>(response, HttpStatus.OK);
     }
 
