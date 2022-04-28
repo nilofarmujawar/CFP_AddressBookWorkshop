@@ -1,26 +1,19 @@
 package com.bridgelabz.addressbook.model;
 
-/**
- * import classes
- */
+
+import com.bridgelabz.addressbook.dto.AddressBookDTO;
+import lombok.Data;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
-/**
- * Map to a database table address
- */
+//Map to a database table address
 @Entity
-
-/**
- * Created AddressBook class with different fields
- */
+@Data
+//Created AddressBook class with different fields
 public class AddressBook {
 
-    /**
-     * variables
-     */
     @Id
     @GeneratedValue
     private Integer id;
@@ -33,106 +26,98 @@ public class AddressBook {
     private String state;
     private Integer zip;
 
-    /**
-     * default constructor
-     */
+
+    //Created constructor for saveaddress method
+    public AddressBook(AddressBookDTO addressBookDTO) {
+        super();
+        this.firstName = addressBookDTO.getFirstName();
+        this.lastName = addressBookDTO.getLastName();
+        this.email = addressBookDTO.getEmail();
+        this.phoneNumber = addressBookDTO.getPhoneNumber();
+        this.city = addressBookDTO.getCity();
+        this.state = addressBookDTO.getState();
+        this.zip = addressBookDTO.getZip();
+
+    }
+
+    //Created constructor for updatedataby id method
+    public AddressBook(Integer id, AddressBookDTO addressBookDTO) {
+        this.id = id;
+        this.firstName = addressBookDTO.getFirstName();
+        this.lastName = addressBookDTO.getLastName();
+        this.email = addressBookDTO.getEmail();
+        this.phoneNumber = addressBookDTO.getPhoneNumber();
+        this.city = addressBookDTO.getCity();
+        this.state = addressBookDTO.getState();
+        this.zip = addressBookDTO.getZip();
+    }
+
     public AddressBook() {
         super();
     }
 
-    /**
-     * Created constructor for postaddress method
-     * @param addressBook - all person data
-     */
-    public AddressBook(AddressBook addressBook) {
-        super();
-        this.firstName = addressBook.firstName;
-        this.lastName = addressBook.lastName;
-        this.email = addressBook.email;
-        this.phoneNumber = addressBook.phoneNumber;
-        this.city = addressBook.city;
-        this.state = addressBook.state;
-        this.zip = addressBook.zip;
-    }
-
-    /**
-     * Created constructor for update by id method
-     * @param addressBook - all person data
-     * @param id - person id
-     */
-    public AddressBook(AddressBook addressBook, Integer id) {
-        this.id = id;
-        this.firstName = addressBook.firstName;
-        this.lastName = addressBook.lastName;
-        this.email = addressBook.email;
-        this.phoneNumber = addressBook.phoneNumber;
-        this.city = addressBook.city;
-        this.state = addressBook.state;
-        this.zip = addressBook.zip;
-
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public long getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(long phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public Integer getZip() {
-        return zip;
-    }
-
-    public void setZip(Integer zip) {
-        this.zip = zip;
-    }
+    //Created getters and setters
+//    public Integer getId() {
+//        return id;
+//    }
+//
+//    public void setId(Integer id) {
+//        this.id = id;
+//    }
+//
+//    public String getFirstName() {
+//        return firstName;
+//    }
+//
+//    public void setFirstName(String firstName) {
+//        this.firstName = firstName;
+//    }
+//
+//    public String getLastName() {
+//        return lastName;
+//    }
+//
+//    public void setLastName(String lastName) {
+//        this.lastName = lastName;
+//    }
+//
+//    public String getEmail() {
+//        return email;
+//    }
+//
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
+//
+//    public long getPhoneNumber() {
+//        return phoneNumber;
+//    }
+//
+//    public void setPhoneNumber(long phoneNumber) {
+//        this.phoneNumber = phoneNumber;
+//    }
+//
+//    public String getCity() {
+//        return city;
+//    }
+//
+//    public void setCity(String city) {
+//        this.city = city;
+//    }
+//
+//    public String getState() {
+//        return state;
+//    }
+//
+//    public void setState(String state) {
+//        this.state = state;
+//    }
+//
+//    public Integer getZip() {
+//        return zip;
+//    }
+//
+//    public void setZip(Integer zip) {
+//        this.zip = zip;
+//    }
 }

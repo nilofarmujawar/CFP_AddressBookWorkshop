@@ -5,7 +5,7 @@ public class AddressBookDTO {
     private String firstName;
     private String lastName;
     private String email;
-    private long phoneNumber;
+    private Long phoneNumber;
     private String city;
     private String state;
     private Integer zip;
@@ -32,7 +32,7 @@ public class AddressBookDTO {
     public long getPhoneNumber() {
         return phoneNumber;
     }
-    public void setPhoneNumber(long phoneNumber) {
+    public void setPhoneNumber(Long phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
     public String getCity() {
