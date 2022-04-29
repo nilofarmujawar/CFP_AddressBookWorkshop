@@ -5,6 +5,7 @@ package com.bridgelabz.addressbook;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 
 /**
  * create a class name as AddressBookAppApplication
@@ -18,11 +19,9 @@ public class AddressBookAppApplication {
 	 * @param args - no arguments its default
 	 */
 	public static void main(String[] args) {
-		/**
-		 * display welcome msg on console
-		 */
-		System.out.println("Welcome to address book program ");
-		SpringApplication.run(AddressBookAppApplication.class, args);
-	}
+		ConfigurableApplicationContext context = SpringApplication
+				.run(AddressBookAppApplication.class, args);
 
+		log.info("AddressBook app started in  {} Environment", context.getEnvironment().getProperty("environment"));
+	}
 }

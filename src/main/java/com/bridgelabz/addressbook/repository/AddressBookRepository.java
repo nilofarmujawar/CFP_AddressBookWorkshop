@@ -1,12 +1,14 @@
 package com.bridgelabz.addressbook.repository;
 
-import com.bridgelabz.addressbook.model.AddressBook;
-import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.List;
 
-/**
- * Created AddressBookRepository class extending JpaRepository for CRUD operations and for some custom query methods
- * AddressBook - model class
- * Integer - primary key
- */
-public interface AddressBookRepository extends JpaRepository<AddressBook, Integer> {
+import com.bridgelabz.addressbook.model.AddressBookData;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+
+//Created AddressBookRepository extending JpaRepository so we can perform CRUD as well as can implement custom query methods
+public interface AddressBookRepository extends JpaRepository<AddressBookData, Integer>{
+
+    @Query(value="select * from address_book where city =:city",nativeQuery=true)
+    public List<AddressBookData> findByCity(String city);
 }
