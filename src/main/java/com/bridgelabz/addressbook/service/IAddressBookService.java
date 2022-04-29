@@ -5,21 +5,21 @@ import com.bridgelabz.addressbook.dto.AddressBookDTO;
 import com.bridgelabz.addressbook.model.AddressBook;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Created IAddressBookService interface to achieve abstraction
  */
 public interface IAddressBookService {
 
-    public AddressBook saveAddress(AddressBookDTO addressBookDTO);
+    public String getWelcome();
 
-    public List<AddressBook> getListOfAddresses();
+    public AddressBook postDataToRepo(AddressBookDTO addressBookDTO);
 
-    public Optional<AddressBook> getDataById(Integer id);
+    public List<AddressBook> getAllData();
 
-    public AddressBook updateDateById(Integer id, AddressBookDTO addressBookDTO);
+    public AddressBook getDataById(Integer id);
 
-    public void deleteContact(Integer id);
+    public AddressBook updateDataById(Integer id, AddressBookDTO addressBookDTO);
 
+    public String deleteDataById(Integer id);
 }

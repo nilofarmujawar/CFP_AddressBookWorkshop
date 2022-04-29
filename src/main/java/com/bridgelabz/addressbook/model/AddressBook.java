@@ -1,144 +1,59 @@
 package com.bridgelabz.addressbook.model;
 
-/**
- * import classes
- */
-import com.bridgelabz.addressbook.dto.AddressBookDTO;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import com.bridgelabz.addressbook.dto.AddressBookDTO;
+
+import lombok.Data;
+
 /**
- * Map to a database table address
+ * Created Model class AddressBook with different fields
  */
 @Entity
+@Data
 
 /**
- * Created AddressBook class with different fields
+ * create a class name as AddressBook
  */
 public class AddressBook {
-
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy=GenerationType.AUTO)
     /**
      * variables
      */
     private Integer id;
-
     private String firstName;
     private String lastName;
     private String email;
-    private long phoneNumber;
+    private Long phoneNumber;
     private String city;
     private String state;
     private Integer zip;
 
-
-    /**
-     * Created parameterized constructor for saveaddress method
-     * @param addressBookDTO - all person data
-     */
-    public AddressBook(AddressBookDTO addressBookDTO) {
-        super();
-        this.firstName = addressBookDTO.getFirstName();
-        this.lastName = addressBookDTO.getLastName();
-        this.email = addressBookDTO.getEmail();
-        this.phoneNumber = addressBookDTO.getPhoneNumber();
-        this.city = addressBookDTO.getCity();
-        this.state = addressBookDTO.getState();
-        this.zip = addressBookDTO.getZip();
-
-    }
-
-    /**
-     * Created constructor for updateDataById method
-     * @param id - person id
-     * @param addressBookDTO - person data
-     */
-    public AddressBook(Integer id, AddressBookDTO addressBookDTO) {
-        this.id = id;
-        this.firstName = addressBookDTO.getFirstName();
-        this.lastName = addressBookDTO.getLastName();
-        this.email = addressBookDTO.getEmail();
-        this.phoneNumber = addressBookDTO.getPhoneNumber();
-        this.city = addressBookDTO.getCity();
-        this.state = addressBookDTO.getState();
-        this.zip = addressBookDTO.getZip();
-    }
-
-    /**
-     * default constructor
-     */
     public AddressBook() {
         super();
     }
 
-    /**
-     * Created getters and setters
-     */
-
-    public Integer getId() {
-        return id;
+    public AddressBook(AddressBookDTO addressBookDTO) {
+        this.firstName=addressBookDTO.getFirstName();
+        this.lastName=addressBookDTO.getLastName();
+        this.email=addressBookDTO.getEmail();
+        this.phoneNumber=addressBookDTO.getPhoneNumber();
+        this.city=addressBookDTO.getCity();
+        this.state=addressBookDTO.getState();
+        this.zip=addressBookDTO.getZip();
     }
-
-    public void setId(Integer id) {
+    public AddressBook(Integer id,AddressBookDTO addressBookDTO) {
         this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public long getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(long phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public Integer getZip() {
-        return zip;
-    }
-
-    public void setZip(Integer zip) {
-        this.zip = zip;
+        this.firstName=addressBookDTO.getFirstName();
+        this.lastName=addressBookDTO.getLastName();
+        this.email=addressBookDTO.getEmail();
+        this.phoneNumber=addressBookDTO.getPhoneNumber();
+        this.city=addressBookDTO.getCity();
+        this.state=addressBookDTO.getState();
+        this.zip=addressBookDTO.getZip();
     }
 }
