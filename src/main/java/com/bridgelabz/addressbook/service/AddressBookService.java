@@ -1,44 +1,55 @@
 package com.bridgelabz.addressbook.service;
 
 import com.bridgelabz.addressbook.dto.AddressBookDTO;
+import com.bridgelabz.addressbook.exception.AddressBookException;
 import com.bridgelabz.addressbook.model.AddressBook;
 import com.bridgelabz.addressbook.repository.AddressBookRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Mark class as a service provider
- */
+
 @Service
+
+/**
+ * Created AddressBookService class to serve api calls done by controller layer
+ */
 public class AddressBookService implements IAddressBookService {
 
     /**
-     * Autowired  AddressBookRepository class to inject its dependency
+     * Autowired AddressBookRepository interface to inject its dependency here
      */
     @Autowired
     AddressBookRepository repository;
 
-
     /**
-     * Created method name as saveAddrss which serve controllers api call to save record to repo
-     * @param addressBookDTO - all data
-     * @return -accepts the address book data in JSON format and stores it in DB
+     * create a getWelcome method
+     * @return - welcome msg
      */
-    public AddressBook saveAddress(AddressBookDTO addressBookDTO) {
-        AddressBook addressBook = new AddressBook(addressBookDTO);
-        repository.save(addressBook);
-        return addressBook;
+    public String getWelcome() {
+        return "Welcome to Employee Payroll !!!";
     }
 
     /**
-     * Created method name aas getListOfAddresses which serves controllers api call to retrieve all records
+     * Created method name as postDataToRepo which serve controllers api call to save record to repo
+     * @param addressBookDTO - all data
+     * @return -accepts the address book data in JSON format and stores it in DB
+     */
+    public AddressBook postDataToRepo(AddressBookDTO addressBookDTO) {
+        AddressBook  newAddressBook  = new AddressBook (addressBookDTO);
+        repository.save(newAddressBook );
+        return newAddressBook ;
+    }
+
+    /**
+     * Created method name aas getAllData which serves controllers api call to retrieve all records
      * @return - return all address book data in list format
      */
-    public List<AddressBook> getListOfAddresses() {
-        List<AddressBook> list = repository.findAll();
+    public List<AddressBook > getAllData() {
+        List<AddressBook > list = repository.findAll();
         return list;
     }
 
@@ -47,9 +58,11 @@ public class AddressBookService implements IAddressBookService {
      * @param id - person id
      * @return - get person data by id in json format
      */
-    public Optional<AddressBook> getDataById(Integer id) {
-        Optional<AddressBook> newAddressBook = repository.findById(id);
-        return newAddressBook;
+    public AddressBook getDataById(Integer id) {
+        Optional<AddressBook> newEmployee = repository.findById(id);
+        if (newEmployee.isPresent()) {
+            return newEmployee.get();
+        } else throw new AddressBookException("Employee id not found");
     }
 
     /**
@@ -58,18 +71,33 @@ public class AddressBookService implements IAddressBookService {
      * @param addressBookDTO - all data
      * @return - update address book person data for particular id in json format
      */
-    public AddressBook updateDateById(Integer id, AddressBookDTO addressBookDTO) {
-        AddressBook addressBook = new AddressBook(id, addressBookDTO);
-        repository.save(addressBook);
-        return addressBook;
+    public AddressBook updateDataById(Integer id, AddressBookDTO addressBookDTO) {
+        Optional<AddressBook> newEmployee = repository.findById(id);
+        if (newEmployee.isPresent()) {
+            AddressBook addressBook = new AddressBook(id, addressBookDTO);
+            repository.save(addressBook);
+            return addressBook;
+        } else {
+            throw new AddressBookException("Employee Not found");
+        }
     }
+
 
     /**
-     * Created method name as deleteContact which serves controllers api call to delete record by id
+     * Created method name as deleteDataById which serves controllers api call to delete record by id
      * @param id - person id
      */
-    public void deleteContact(Integer id) {
-        repository.deleteById(id);
+    public String deleteDataById(Integer id) {
+        Optional<AddressBook> newEmployee = repository.findById(id);
+        if (newEmployee.isPresent()) {
+            repository.deleteById(id);
+        } else {
+            throw new AddressBookException("Employee Details not found");
+        }
+        return null;
     }
-
 }
+
+
+
+
