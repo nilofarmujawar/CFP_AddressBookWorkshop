@@ -88,5 +88,5 @@ public class AddressBookController {
     public ResponseEntity<String> deleteRecordById(@PathVariable String token){
         ResponseDTO dto = new ResponseDTO("Address Book Record deleted successfully",addressBookService.deleteRecordByToken(token));
         return new ResponseEntity(dto,HttpStatus.OK);
-    } 
+    }
 }
