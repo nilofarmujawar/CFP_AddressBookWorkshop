@@ -37,5 +37,5 @@ public interface IAddressBookService {
 
 
     //deleted records by token
-    AddressBookData deleteRecordByToken(String token);
+    String deleteRecordByToken(String token);
 }
