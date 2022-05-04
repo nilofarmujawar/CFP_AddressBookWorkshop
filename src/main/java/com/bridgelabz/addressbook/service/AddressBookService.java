@@ -38,9 +38,9 @@ public class AddressBookService implements IAddressBookService {
         AddressBookData newAddress = new AddressBookData(addressBookDTO);
         addressBookRepository.save(newAddress);
         String token = tokenUtility.createToken(newAddress.getId());
-        sender.sendEmail(newAddress.getEmail(), "Test Email", "Registered SuccessFully, hii: "
+        sender.sendEmail(newAddress.getEmail(), "Test Email", "Registered SuccessFully, hii : "
                 +newAddress.getFirstName()+"Please Click here to get data-> "
-                +"http://localhost:8080/addressBook/retrieve/"+token);
+                +"http://localhost:8081/addressBook/get/"+token);
         return token;
     }
 
@@ -57,17 +57,19 @@ public class AddressBookService implements IAddressBookService {
         Integer id= tokenUtility.decodeToken(token);
         Optional<AddressBookData> addressBook = addressBookRepository.findById(id);
         if(addressBook.isPresent()) {
-            throw new AddressBookException("Address Book Details for id not found");
+            AddressBookData newBook = new AddressBookData(id,addressBookDTO);
+            addressBookRepository.save(newBook);
+            sender.sendEmail(newBook.getEmail(), "Test Email", "Updated SuccessFully, hii: "
+                    +newBook.getFirstName()+"Please Click here to get data of updated id-> "
+                    +"http://localhost:8081/addressBook/get/"+token);
+            return newBook;
+
         }
-        AddressBookData newBook = new AddressBookData(id,addressBookDTO);
-        addressBookRepository.save(newBook);
-        sender.sendEmail(newBook.getEmail(), "Test Email", "Updated SuccessFully, hii: "
-                +newBook.getFirstName()+"Please Click here to get data of updated id-> "
-                +"http://localhost:8081/addressBook/retrieve/"+token);
-        return newBook;
+        throw new AddressBookException("Address Book Details for id not found");
     }
 
-    /**accepts the contact Id and deletes the data of that contact from DB
+    /**
+     * accepts the contact Id and deletes the data of that contact from DB
      * @param token - represents contact id
      * @return Id and Acknowledgment message
      */
@@ -80,13 +82,14 @@ public class AddressBookService implements IAddressBookService {
             addressBookRepository.deleteById(id);
             sender.sendEmail("nilofarmujawar1118@gmail.com", "Test Email", "Deleted SuccessFully, hii: "
                     +addressBook.get()+"Please Click here to get data-> "
-                    +"http://localhost:8081/addressBook/retrieve/"+token);
+                    +"http://localhost:8081/addressBook/delete/"+token);
         }
         else {
             log.warn("Unable to find address book details for given id: "+id);
             throw new AddressBookException("Address Book Details not found");
         }
-        return null;
+       // return "Data is deleted successfully who's user id is "+id;
+        return addressBook.get();
     }
     /**
      * getAll AddressBook list by token
@@ -119,9 +122,9 @@ public class AddressBookService implements IAddressBookService {
         Integer id = tokenUtility.decodeToken(token);
         Optional<AddressBookData> newAddressBook = addressBookRepository.findById(id);
         if(newAddressBook.isPresent()) {
-            sender.sendEmail("nilofarmujawar1118@gmail.com", "Test Email", "Deleted SuccessFully, hii: "
+            sender.sendEmail("nilofarmujawar1118@gmail.com", "Test Email", "Data retrieve SuccessFully, hii: "
                     +newAddressBook.get().getEmail()+"Please Click here to get data-> "
-                    +"http://localhost:8081/addressBook/retrieve/"+token);
+                    +"http://localhost:8081/addressBook/get/"+token);
 
             return newAddressBook.get();
         }
