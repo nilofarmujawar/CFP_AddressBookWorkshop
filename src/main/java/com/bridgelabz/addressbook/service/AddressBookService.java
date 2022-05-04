@@ -68,12 +68,13 @@ public class AddressBookService implements IAddressBookService {
         throw new AddressBookException("Address Book Details for id not found");
     }
 
-    /**accepts the contact Id and deletes the data of that contact from DB
+    /**
+     * accepts the contact Id and deletes the data of that contact from DB
      * @param token - represents contact id
      * @return Id and Acknowledgment message
      */
 
-    public String deleteRecordByToken(String token) {
+    public AddressBookData deleteRecordByToken(String token) {
         Integer id = tokenUtility.decodeToken(token);
         Optional<AddressBookData> addressBook = addressBookRepository.findById(id);
         if(addressBook.isPresent())
@@ -87,7 +88,8 @@ public class AddressBookService implements IAddressBookService {
             log.warn("Unable to find address book details for given id: "+id);
             throw new AddressBookException("Address Book Details not found");
         }
-        return "Data is deleted successfully who's user id is "+id;
+       // return "Data is deleted successfully who's user id is "+id;
+        return addressBook.get();
     }
     /**
      * getAll AddressBook list by token
